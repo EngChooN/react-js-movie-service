@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <div id="root"></div>
+  </body>
+  <script
+    crossorigin
+    src="https://unpkg.com/react@18/umd/react.development.js"
+  ></script>
+  <script
+    crossorigin
+    src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+  ></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const root = document.getElementById("root");
+    function Btn({ btnName, onClickFunction }) {
+      // props를 이용하여 버튼을 컴포넌트화 시켜보기 (function props도 가능!)
+      console.log("버튼랜더링");
+
+      return (
+        <button
+          onClick={onClickFunction}
+          style={{
+            backgroundColor: "tomato",
+            color: "white",
+            padding: "10px 20px",
+            border: "0px",
+            borderRadius: "10px",
+            cursor: "pointer",
+          }}
+        >
+          {btnName}
+        </button>
+      );
+    }
+    const MemoizingBtn = React.memo(Btn);
+    function MinutesToHours() {
+      const [minutes, setMinutes] = React.useState(0);
+      const [hours, setHours] = React.useState(0);
+      const [flipped, setFlipped] = React.useState(false);
+
+      const minutesToHours = (e) => {
+        setMinutes(e.target.value);
+      };
+
+      const hoursToMinutes = (e) => {
+        setHours(e.target.value);
+      };
+
+      const reset = () => {
+        setMinutes(0);
+      };
+
+      const flippedChange = () => {
+        setFlipped((currentValue) => !currentValue);
+      };
+
+      // 조건부 연산자가 아니면, input에 disabled={flipped === true}를 활용하여
+      // 참, 거짓 값을 state로 바인딩 해주자!!
+      return (
+        <div>
+          <h1>시간 변환기</h1>
+          {flipped === false ? (
+            <>
+              <input
+                placeholder="분"
+                type="number"
+                onChange={minutesToHours}
+                value={minutes}
+              />
+              분
+              <h3>
+                from {minutes} 분 to {Math.round(minutes / 60)} 시
+              </h3>
+            </>
+          ) : (
+            <>
+              <input
+                placeholder="시"
+                type="number"
+                onChange={hoursToMinutes}
+                value={hours}
+              />
+              시
+              <h3>
+                from {hours} 시 to {Math.round(hours * 60)} 분
+              </h3>
+            </>
+          )}
+          <button onClick={reset}>초기화</button>
+          <button onClick={flippedChange}>변경</button>
+        </div>
+      );
+    }
+    function KmToMiles() {
+      const [minutes, setMinutes] = React.useState(0);
+      const [hours, setHours] = React.useState(0);
+      const [flipped, setFlipped] = React.useState(false);
+
+      const minutesToHours = (e) => {
+        setMinutes(e.target.value);
+      };
+
+      const hoursToMinutes = (e) => {
+        setHours(e.target.value);
+      };
+
+      const reset = () => {
+        setMinutes(0);
+      };
+
+      const flippedChange = () => {
+        setFlipped((currentValue) => !currentValue);
+      };
+
+      // 조건부 연산자가 아니면, input에 disabled={flipped === true}를 활용하여
+      // 참, 거짓 값을 state로 바인딩 해주자!!
+      return (
+        <div>
+          <h1>거리 변환기</h1>
+          {flipped === false ? (
+            <>
+              <input
+                placeholder="분"
+                type="number"
+                onChange={minutesToHours}
+                value={minutes}
+              />
+              분
+              <h3>
+                from {minutes} 분 to {Math.round(minutes / 60)} 시
+              </h3>
+            </>
+          ) : (
+            <>
+              <input
+                placeholder="시"
+                type="number"
+                onChange={hoursToMinutes}
+                value={hours}
+              />
+              시
+              <h3>
+                from {hours} 시 to {Math.round(hours * 60)} 분
+              </h3>
+            </>
+          )}
+          <button onClick={reset}>초기화</button>
+          <button onClick={flippedChange}>변경</button>
+        </div>
+      );
+    }
+    function App() {
+      console.log("부모APP랜더링");
+      const [menuState, setMenuState] = React.useState(0);
+
+      const menuClick1 = () => {
+        setMenuState(1);
+        console.log(menuState);
+      };
+
+      const menuClick2 = () => {
+        setMenuState(2);
+        console.log(menuState);
+      };
+
+      return (
+        <div>
+          <h1>단위 변환기</h1>
+          <button onClick={menuClick1}>시간 변환기</button>
+          <button onClick={menuClick2}>거리 변환기</button>
+          <MemoizingBtn btnName="시간 변환기" onClickFunction={menuClick1} />
+          <MemoizingBtn btnName="거리 변환기" onClickFunction={menuClick2} />
+          {menuState === 1 ? <MinutesToHours /> : null}
+          {menuState === 2 ? <KmToMiles /> : null}
+        </div>
+      );
+    }
+    ReactDOM.render(<App />, root);
+  </script>
+</html>
