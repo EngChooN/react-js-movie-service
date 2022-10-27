@@ -1,37 +1,35 @@
-import Button from "./Button";
-import AppCss from "./App.module.css";
 import { useEffect, useState } from "react";
 
 function App() {
-  console.log("call api not useEffect");
-
-  const [counter, setCounter] = useState(0);
-  const clickBtn = () => {
-    setCounter((prev) => prev + 1);
-    console.log("click button!");
-  };
-
-  const [inputValue, setInputValue] = useState("");
-  const onChangeInput = (e) => setInputValue(e.target.value);
-
   useEffect(() => {
-    // 최초의 마운트 시, 한번만 api를 호출한다. (ex 글 리스트?)
-    console.log("call api useEffect");
+    console.log("loading 문구와 함께 api 호출");
+    fetch(
+      `https://yts.mx/api/v2/list_movies.json?minimum_rating=8.8&sort_by=year`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        // 변환 데이터 state 저장
+        console.log(data.data.movies);
+        setMovieData(data.data.movies);
+        console.log("api 호출 후, loading 문구 OFF");
+        setLoadingState(false);
+      });
   }, []);
-  useEffect(() => {
-    // 다른 state의 렌더링을 해도 api를 호출하지 않는다.
-    // 단 inputValue의 상태만 변할 때, api를 호출한다, (ex 검색결과?)
-    console.log("search api");
-  }, [inputValue]);
+
+  const [loadingState, setLoadingState] = useState(true);
+  const [movieData, setMovieData] = useState([]);
 
   return (
-    <div className="App">
-      <h1 className={AppCss.title}>Hello World!</h1>
-      <h3>counter {counter} !</h3>
-      <Button text={"Button Component"} clickFunction={clickBtn} />
-      <button>Just Button</button>
-      <h3>search value: {inputValue}</h3>
-      <input onChange={onChangeInput} type={"text"} />
+    <div>
+      {loadingState ? (
+        <div>loading...</div>
+      ) : (
+        movieData.map((movie) => {
+          <div key={movie.id}>
+            <h3>{movie[movie.id].url}</h3>
+          </div>;
+        })
+      )}
     </div>
   );
 }
