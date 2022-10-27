@@ -1,13 +1,9 @@
 import PropTypes from "prop-types";
 import btn from "./Module.Btn.css";
 
-function Button({ text }) {
-  const onClickBtn = () => {
-    console.log("Button Clicked!!");
-  };
-
+function Button({ text, clickFunction }) {
   return (
-    <button onClick={onClickBtn} className="btn">
+    <button onClick={clickFunction} className={btn.button}>
       {text}
     </button>
   );
