@@ -24,11 +24,13 @@ function App() {
       {loadingState ? (
         <div>loading...</div>
       ) : (
-        movieData.map((movie) => {
-          <div key={movie.id}>
-            <h3>{movie[movie.id].url}</h3>
-          </div>;
-        })
+        movieData.map((movie, index) => (
+          <div key={index}>
+            <img src={movie.large_cover_image} />
+            <h2>{movie.title}</h2>
+            <span>{movie.rating}</span>
+          </div>
+        ))
       )}
     </div>
   );
