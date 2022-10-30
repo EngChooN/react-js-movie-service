@@ -1,0 +1,15 @@
+.movieInfoWrapper {
+}
+
+.genres {
+  margin-right: 10px;
+  font-weight: 600;
+}
+
+.thumb {
+  transition: 0.3s ease;
+  border-radius: 15px;
+}
+.thumb:hover {
+  scale: 1.3;
+}
