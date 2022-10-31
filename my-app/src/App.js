@@ -8,7 +8,7 @@ function App() {
       {/* Route를 찾는 역할인 Switch */}
       <Switch>
         {/* Detail */}
-        <Route path="/detail">
+        <Route path="/movie/:id">
           <Detail />
         </Route>
         {/* Home */}

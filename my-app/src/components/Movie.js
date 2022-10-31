@@ -1,19 +1,37 @@
 import MovieModuleCss from "./Movie.module.css";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-function Movie({ movie, key }) {
-  console.log(key);
+function Movie({
+  movieId,
+  movieTitle,
+  movieGenres,
+  movieCoverImg,
+  movieRating,
+}) {
   return (
     <div className={MovieModuleCss.movieInfoWrapper}>
-      <img className={MovieModuleCss.thumb} src={movie.medium_cover_image} />
-      <Link to={"/detail"}>
-        <h2>{movie.title}</h2>
+      <Link
+        to={`/movie/${movieId}`}
+        style={{ display: "flex", justifyContent: "center" }}
+      >
+        <img className={MovieModuleCss.thumb} src={movieCoverImg} />
       </Link>
-      {movie.genres.map((el, index) => (
+      <h2 className={MovieModuleCss.title}>{movieTitle}</h2>
+      {movieGenres.map((el) => (
         <span className={MovieModuleCss.genres}>{el}</span>
       ))}
-      <p>{movie.rating} ⭐️</p>
+      <p className={MovieModuleCss.rating}>{movieRating} ⭐️</p>
     </div>
   );
 }
+
+Movie.propTypes = {
+  movieId: PropTypes.number.isRequired,
+  movieTitle: PropTypes.string.isRequired,
+  movieGenres: PropTypes.arrayOf(PropTypes.string.isRequired),
+  movieCoverImg: PropTypes.string.isRequired,
+  movieRating: PropTypes.number.isRequired,
+};
+
 export default Movie;

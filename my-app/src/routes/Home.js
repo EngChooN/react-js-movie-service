@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import HomeCss from "./App.module.css";
+import HomeCss from "./Home.module.css";
 import Movie from "../components/Movie";
 
 function Home() {
@@ -22,11 +22,26 @@ function Home() {
   const [movieData, setMovieData] = useState([]);
 
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        flexFlow: "wrap",
+        justifyContent: "center",
+      }}
+    >
       {loadingState ? (
         <div className={HomeCss.loading}>loading...</div>
       ) : (
-        movieData.map((movie) => <Movie key={movie.id} movie={movie} />)
+        movieData.map((movie) => (
+          <Movie
+            key={movie.id}
+            movieId={movie.id}
+            movieTitle={movie.title}
+            movieGenres={movie.genres}
+            movieCoverImg={movie.medium_cover_image}
+            movieRating={movie.rating}
+          />
+        ))
       )}
     </div>
   );
