@@ -29,6 +29,8 @@ body {
   z-index: 1;
   font-size: 30px;
   margin-bottom: 30px;
+  /* text-align: center; */
+  margin-left: 30px;
 }
 
 .rating {
@@ -67,6 +69,7 @@ body {
   height: 135px;
   /* padding: 30px; */
   text-align: left;
+  margin-left: 30px;
   z-index: 0;
   font-size: 20px;
   font-weight: 200;
@@ -76,12 +79,24 @@ body {
   -webkit-box-orient: vertical;
 }
 
+.leftWrapper {
+  margin-left: 50px;
+  margin-right: 20px;
+  border-right: 1px solid black;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .rightWrapper {
   background-color: rgba(0, 0, 0, 0.397);
-  margin-left: 100px;
+  margin-left: 50px;
   max-width: 400px;
   width: 100%;
   padding: 30px;
+  margin-right: 50px;
 }
 
 .torrentWrapper {

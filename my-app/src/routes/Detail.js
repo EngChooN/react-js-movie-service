@@ -4,13 +4,20 @@ import { useParams } from "react-router-dom";
 import DetailCss from "./Detail.module.css";
 
 function Detail() {
+  useEffect(() => {
+    getMovieInfo();
+  }, []);
   // const movieId = useParams();
   // {id: 0000}으로 값을 받기 때문에, 아래와 같이 더욱 편하게 파라미터를 가져올 수 있다.
   const { id } = useParams();
-  console.log("movieId", id);
   const [movieInfo, setMovieInfo] = useState([]);
-  console.log("movieInfo state", movieInfo);
   const [genres, setGenres] = useState([]);
+  const [torrent, setTorrent] = useState([]);
+
+  console.log("movieId", id);
+  console.log("movieInfo state", movieInfo);
+  console.log("url", movieInfo.genres);
+
   const getMovieInfo = async () => {
     const data = await (
       await fetch(`https://yts.mx/api/v2/movie_details.json?movie_id=${id}`)
@@ -18,10 +25,8 @@ function Detail() {
     console.log("getMovieInfoData", data);
     setMovieInfo(data.data.movie);
     setGenres(data.data.movie.genres);
+    setTorrent(data.data.movie.torrents);
   };
-  useEffect(() => {
-    getMovieInfo();
-  }, []);
   return (
     <div
       className={DetailCss.detailWrapper}
@@ -30,7 +35,7 @@ function Detail() {
       }}
     >
       <div className={DetailCss.bgFilter}>
-        <div>
+        <div className={DetailCss.leftWrapper}>
           <div className={DetailCss.title}>{movieInfo.title_long}</div>
           <img
             className={DetailCss.coverImg}
@@ -56,11 +61,13 @@ function Detail() {
           <div className={DetailCss.torrentWrapper}>
             <div>torrent-url</div>
             <ul>
-              <li>
-                {movieInfo.torrents.map((el) => (
+              {torrent.map((el) => (
+                <li>
                   <a href={el.url}>{el.url}</a>
-                ))}
-              </li>
+                  <br />
+                  {el.quality} / {el.size}
+                </li>
+              ))}
             </ul>
           </div>
         </div>
