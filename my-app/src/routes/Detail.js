@@ -24,51 +24,46 @@ function Detail() {
   }, []);
   return (
     <div
+      className={DetailCss.detailWrapper}
       style={{
         backgroundImage: `url(${movieInfo.background_image_original})`,
-        backgroundSize: "cover",
-        width: "100%",
-        height: "100vh",
-        backgroundAttachment: "fixed",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        overflowY: "hidden",
       }}
     >
-      <div
-        className={DetailCss.bgFilter}
-        style={{
-          overflowY: "scroll",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            fontSize: "40px",
-            paddingTop: "50px",
-            marginBottom: "50px",
-          }}
-        >
+      <div className={DetailCss.bgFilter}>
+        <div>
           <div className={DetailCss.title}>{movieInfo.title_long}</div>
-          <div className={DetailCss.rating}>{movieInfo.rating}⭐️</div>
+          <img
+            className={DetailCss.coverImg}
+            src={movieInfo.large_cover_image}
+          />
+          <div style={{ display: "flex" }}>
+            {genres.map((el, idx) => (
+              <span key={idx} className={DetailCss.genres}>
+                #{el}
+              </span>
+            ))}
+          </div>
+          <div className={DetailCss.intro}>{movieInfo.description_intro}</div>
         </div>
-        <img className={DetailCss.coverImg} src={movieInfo.large_cover_image} />
-        <div style={{ display: "flex" }}>
-          {genres.map((el, idx) => (
-            <span key={idx} className={DetailCss.genres}>
-              {el}
-            </span>
-          ))}
+        <div className={DetailCss.rightWrapper}>
+          <div>
+            <div>title: {movieInfo.title_english}</div>
+            <div>year: {movieInfo.year}</div>
+            <div>runtime: {movieInfo.runtime} min</div>
+            <div>rating: {movieInfo.rating}</div>
+            <div>like: {movieInfo.like_count}</div>
+          </div>
+          <div className={DetailCss.torrentWrapper}>
+            <div>torrent-url</div>
+            <ul>
+              <li>
+                {movieInfo.torrents.map((el) => (
+                  <a href={el.url}>{el.url}</a>
+                ))}
+              </li>
+            </ul>
+          </div>
         </div>
-        <div className={DetailCss.intro}>{movieInfo.description_intro}</div>
       </div>
     </div>
   );

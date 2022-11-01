@@ -13,9 +13,14 @@ function Movie({
     <div className={MovieModuleCss.movieInfoWrapper}>
       <Link
         to={`/movie/${movieId}`}
-        style={{ display: "flex", justifyContent: "center" }}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          position: "relative",
+        }}
       >
         <img className={MovieModuleCss.thumb} src={movieCoverImg} />
+        <div className={MovieModuleCss.thumbTxt}>more detail info</div>
       </Link>
       <div className={MovieModuleCss.title}>{movieTitle}</div>
       {/* {movieGenres.map((el) => (

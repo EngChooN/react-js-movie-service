@@ -3,29 +3,47 @@ body {
   color: white;
 }
 
+.detailWrapper {
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  background-attachment: fixed;
+}
+
 .bgFilter {
   position: absolute;
-  width: 100vw;
-  height: 100%;
+  width: 100%;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.603);
   z-index: 0;
+  display: flex;
+  overflow-y: scroll;
+  justify-content: center;
+  align-items: center;
 }
 
 .title {
   /* color: white; */
   z-index: 1;
+  font-size: 30px;
+  margin-bottom: 30px;
 }
 
 .rating {
   /* color: white; */
   margin-left: 30px;
   z-index: 1;
+  font-size: 30px;
 }
 
 .coverImg {
   z-index: 0;
-  border-radius: 15px;
-  border: 6px solid rgb(182, 182, 182);
+  /* border-radius: 15px; */
+  /* border: 6px solid rgb(182, 182, 182); */
+  max-width: 300px;
+  width: 100%;
 }
 
 .genres {
@@ -33,25 +51,42 @@ body {
   z-index: 0;
   margin-right: 10px;
   margin-left: 10px;
-  font-size: 20px;
+  font-size: 15px;
   background-color: rgb(255, 255, 255);
   color: black;
   padding: 5px;
   border-radius: 8px;
-  font-weight: 700;
+  font-weight: 400;
   margin-top: 40px;
+  margin-bottom: 20px;
 }
 
 .intro {
-  max-width: 700px;
+  max-width: 400px;
   width: 100%;
-  height: 200px;
-  padding: 30px;
+  height: 135px;
+  /* padding: 30px; */
   text-align: left;
   z-index: 0;
-  font-size: 28px;
+  font-size: 20px;
+  font-weight: 200;
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 6;
   -webkit-box-orient: vertical;
+}
+
+.rightWrapper {
+  background-color: rgba(0, 0, 0, 0.397);
+  margin-left: 100px;
+  max-width: 400px;
+  width: 100%;
+  padding: 30px;
+}
+
+.torrentWrapper {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: white;
+  color: black;
 }
