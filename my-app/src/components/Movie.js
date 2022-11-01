@@ -17,11 +17,11 @@ function Movie({
       >
         <img className={MovieModuleCss.thumb} src={movieCoverImg} />
       </Link>
-      <h2 className={MovieModuleCss.title}>{movieTitle}</h2>
-      {movieGenres.map((el) => (
+      <div className={MovieModuleCss.title}>{movieTitle}</div>
+      {/* {movieGenres.map((el) => (
         <span className={MovieModuleCss.genres}>{el}</span>
-      ))}
-      <p className={MovieModuleCss.rating}>{movieRating} ⭐️</p>
+      ))} */}
+      <p className={MovieModuleCss.rating}>{movieRating}⭐️</p>
     </div>
   );
 }

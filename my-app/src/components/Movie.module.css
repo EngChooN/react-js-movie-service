@@ -1,28 +1,41 @@
 .movieInfoWrapper {
   /* text-align: center; */
-  margin-bottom: 25px;
-  width: 250px;
-  margin: 30px;
+  /* margin-bottom: 25px; */
+  width: 200px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-top: 50px;
+}
+.movieInfoWrapper:last-child {
+  margin-bottom: 50px;
 }
 
 .rating {
   color: white;
+  text-align: left;
+  font-size: 15px;
+  width: 100%;
 }
 
 .title {
   color: white;
+  text-align: left;
+  font-size: 20px;
+  width: 100%;
+  margin-top: 20px;
 }
 
-.genres {
+/* .genres {
   margin-right: 10px;
   font-weight: 600;
   color: white;
-}
+} */
 
 .thumb {
   transition: 0.3s ease;
   border-radius: 15px;
   border: 6px solid rgb(182, 182, 182);
+  width: 100%;
 }
 .thumb:hover {
   scale: 1.1;
