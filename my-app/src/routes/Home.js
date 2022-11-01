@@ -1,18 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import HomeCss from "./Home.module.css";
 import Movie from "../components/Movie";
 
 function Home() {
-  // useEffect
-  // 최초 api 호출
-  useEffect(() => {
-    console.log("loading 문구와 함께 api 호출");
-    apiLoad();
-  }, []);
-  // 스크롤 감지 (함수 실행)
-  useEffect(() => {
-    window.addEventListener("scroll", scrollFunc);
-  });
+  // useState
+  // 최초 로딩 flag
+  const [loadingState, setLoadingState] = useState(true);
+  // api 데이터를 담을 배열 형태의 state
+  const [movieData, setMovieData] = useState([]);
+  // 페이지 값
+  const [pageState, setPageState] = useState(1);
 
   // function
   // 스크린 최하단 감지
@@ -40,6 +37,10 @@ function Home() {
         setLoadingState(false);
       });
   };
+  const changePageState = () => {
+    setPageState((currentValue) => currentValue + 1);
+    apiReload();
+  };
   // api 재호출 (기존 데이터 배열에 새로운 배열 추가로 저장)
   const apiReload = async () => {
     await fetch(
@@ -48,44 +49,63 @@ function Home() {
       .then((response) => response.json())
       .then((data) => {
         // 추가로 불러온 변환 데이터, state 추가로 저장
-        console.log(data.data.movies);
-        setMovieData((currentDataArray) => [
-          ...currentDataArray,
-          data.data.movies,
-        ]);
+        const newData = data.data.movies;
+        const currentData = movieData;
+
+        console.log("기존 데이터", movieData);
+        console.log("새로 불러온 데이터", newData);
+        setMovieData([...currentData, ...newData]);
       });
   };
 
-  // useState
-  // 최초 로딩 flag
-  const [loadingState, setLoadingState] = useState(true);
-  // api 데이터를 담을 배열 형태의 state
-  const [movieData, setMovieData] = useState([]);
-  // 페이지 값
-  const [pageState, setPageState] = useState(1);
-
+  // useEffect
+  // 최초 api 호출
+  useEffect(() => {
+    console.log("loading 문구와 함께 api 호출");
+    apiLoad();
+  }, []);
+  // 스크롤 감지 (함수 실행)
+  useEffect(() => {
+    // window.addEventListener("scroll", scrollFunc);
+  });
+  // pageState 비동기로 인한 문제처리
+  useEffect(() => {
+    console.log("pageState", pageState);
+  }, [pageState]);
   return (
-    <div
-      style={{
-        display: "flex",
-        flexFlow: "wrap",
-        justifyContent: "center",
-      }}
-    >
-      {loadingState ? (
-        <div className={HomeCss.loading}>loading...</div>
-      ) : (
-        movieData.map((movie) => (
-          <Movie
-            key={movie.id}
-            movieId={movie.id}
-            movieTitle={movie.title}
-            movieGenres={movie.genres}
-            movieCoverImg={movie.medium_cover_image}
-            movieRating={movie.rating}
-          />
-        ))
-      )}
+    <div>
+      <div
+        style={{
+          display: "flex",
+          flexFlow: "wrap",
+          justifyContent: "center",
+        }}
+      >
+        {loadingState ? (
+          <div className={HomeCss.loading}>loading...</div>
+        ) : (
+          movieData.map((movie) => (
+            <Movie
+              key={movie.id}
+              movieId={movie.id}
+              movieTitle={movie.title}
+              movieGenres={movie.genres}
+              movieCoverImg={movie.medium_cover_image}
+              movieRating={movie.rating}
+            />
+          ))
+        )}
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <button className={HomeCss.moreBtn} onClick={changePageState}>
+          more movies...
+        </button>
+      </div>
     </div>
   );
 }

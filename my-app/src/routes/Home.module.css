@@ -10,3 +10,21 @@ html {
   align-items: center;
   font-size: 30px;
 }
+
+.moreBtn {
+  padding: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border: none;
+  border-radius: 8px;
+  background-color: red;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+.moreBtn:active {
+  background-color: rgb(122, 0, 0);
+  color: rgb(165, 165, 165);
+}
