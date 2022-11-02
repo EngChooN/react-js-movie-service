@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import HomeCss from "./Home.module.css";
 import Movie from "../components/Movie";
+import Fade from "react-reveal/Fade";
 
 function Home() {
   // useState
   // 최초 로딩 flag
   const [loadingState, setLoadingState] = useState(true);
+  // reFetch 로딩 flag
+  const [reFetchLoadingState, setReFetchLoadingState] = useState(false);
   // api 데이터를 담을 배열 형태의 state
   const [movieData, setMovieData] = useState([]);
   // 페이지 값
@@ -38,6 +41,7 @@ function Home() {
       });
   };
   const changePageState = () => {
+    setReFetchLoadingState(true);
     setPageState((currentValue) => currentValue + 1);
     apiReload();
   };
@@ -55,6 +59,7 @@ function Home() {
         console.log("기존 데이터", movieData);
         console.log("새로 불러온 데이터", newData);
         setMovieData([...currentData, ...newData]);
+        setReFetchLoadingState(false);
       });
   };
 
@@ -82,30 +87,50 @@ function Home() {
         }}
       >
         {loadingState ? (
-          <div className={HomeCss.loading}>loading...</div>
+          <div className={HomeCss.loading}>
+            <img
+              src={`${process.env.PUBLIC_URL}/img/0008.gif`}
+              className={HomeCss.loadingImg}
+            />
+            loading...
+          </div>
         ) : (
           movieData.map((movie) => (
-            <Movie
-              key={movie.id}
-              movieId={movie.id}
-              movieTitle={movie.title}
-              movieGenres={movie.genres}
-              movieCoverImg={movie.medium_cover_image}
-              movieRating={movie.rating}
-            />
+            <Fade>
+              <Movie
+                key={movie.id}
+                movieId={movie.id}
+                movieTitle={movie.title}
+                movieGenres={movie.genres}
+                movieCoverImg={movie.medium_cover_image}
+                movieRating={movie.rating}
+              />
+            </Fade>
           ))
         )}
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <button className={HomeCss.moreBtn} onClick={changePageState}>
-          more movies...
-        </button>
-      </div>
+      {reFetchLoadingState ? (
+        <div className={HomeCss.loading2}>
+          <img
+            src={`${process.env.PUBLIC_URL}/img/0008.gif`}
+            className={HomeCss.loadingImg}
+          />
+          loading...
+        </div>
+      ) : null}
+
+      {!loadingState ? (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <button className={HomeCss.moreBtn} onClick={changePageState}>
+            click more movies...
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }

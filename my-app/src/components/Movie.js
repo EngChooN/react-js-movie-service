@@ -14,7 +14,7 @@ function Movie({ movieId, movieTitle, movieCoverImg, movieRating }) {
         }}
       >
         <img className={MovieModuleCss.thumb} src={movieCoverImg} />
-        <div className={MovieModuleCss.thumbTxt}>more detail info</div>
+        <div className={MovieModuleCss.thumbTxt}>click more info</div>
       </Link>
       <div className={MovieModuleCss.title}>{movieTitle}</div>
       {/* {movieGenres.map((el) => (
