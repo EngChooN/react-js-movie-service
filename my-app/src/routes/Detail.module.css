@@ -40,7 +40,7 @@ body {
 
 .coverImg {
   z-index: 0;
-  max-width: 500px;
+  max-width: 350px;
   width: 100%;
   /* border-radius: 14px; */
 }
@@ -63,9 +63,9 @@ body {
 .intro {
   /* max-width: 360px; */
   /* width: 100%; */
-  max-height: 500px;
+  max-height: 200px;
   height: 100%;
-  padding: 20px;
+  /* padding: 20px; */
   text-align: left;
   z-index: 0;
   font-size: 21px;
@@ -75,7 +75,9 @@ body {
   -webkit-line-clamp: 6;
   -webkit-box-orient: vertical; */
   overflow-y: scroll;
-  background-color: black;
+  /* background-color: black; */
+  border-bottom: 1px solid gray;
+  padding-bottom: 20px;
 }
 
 .leftWrapper {
@@ -91,21 +93,22 @@ body {
 
 .rightWrapper {
   background-color: rgba(0, 0, 0, 0.397);
-  margin-left: 50px;
-  max-width: 600px;
+  border-radius: 14px;
+  margin-left: 30px;
+  margin-right: 30px;
+  max-width: 500px;
   width: 100%;
   padding: 30px;
-  margin-right: 50px;
 }
 
 .torrentWrapper {
   margin-top: 20px;
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.397);
+  border-top: 1px solid gray;
+  padding-top: 20px;
   color: black;
   overflow-x: hidden;
   color: white;
 }
 .infoWrapper {
-  margin-top: 15px;
+  margin-top: 20px;
 }

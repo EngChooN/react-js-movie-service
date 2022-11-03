@@ -60,15 +60,15 @@ function Detail() {
               time: {movieInfo.runtime} min
             </div>
             <div style={{ marginBottom: "4px" }}>
-              rating: {movieInfo.rating}⭐️
+              rating: {movieInfo.rating} ⭐️
             </div>
-            <div>like: {movieInfo.like_count}👍</div>
+            <div>like: {movieInfo.like_count} 👍</div>
           </div>
           <div className={DetailCss.torrentWrapper}>
             <div style={{ fontSize: "18px" }}>Torrent</div>
-            <ul>
+            <ul style={{ marginBottom: "0px" }}>
               {torrent.map((el) => (
-                <li>
+                <li style={{ marginBottom: "5px" }}>
                   <a href={el.url}>{el.url}</a>
                   <br />
                   <div style={{ fontSize: "13px", marginTop: "5px" }}>

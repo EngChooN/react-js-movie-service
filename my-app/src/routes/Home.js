@@ -115,7 +115,7 @@ function Home() {
             <div style={{ display: "flex", justifyContent: "center" }}>
               <div>Time: {modalData.runtime} min /</div>
               <div>/ Lang: {modalData.lang} /</div>
-              <div>/ {modalData.rating}⭐️</div>
+              <div>/ {modalData.rating} ⭐️</div>
             </div>
             <div style={{ display: "flex", justifyContent: "center" }}>
               {modalData.genres.map((el) => (
