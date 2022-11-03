@@ -48,24 +48,32 @@ function Detail() {
               </span>
             ))}
           </div>
-          <div className={DetailCss.intro}>{movieInfo.description_intro}</div>
         </div>
         <div className={DetailCss.rightWrapper}>
-          <div>
-            <div>title: {movieInfo.title_english}</div>
-            <div>year: {movieInfo.year}</div>
-            <div>runtime: {movieInfo.runtime} min</div>
-            <div>rating: {movieInfo.rating}</div>
-            <div>like: {movieInfo.like_count}</div>
+          <div className={DetailCss.intro}>{movieInfo.description_full}</div>
+          <div className={DetailCss.infoWrapper}>
+            <div style={{ marginBottom: "4px" }}>
+              title: {movieInfo.title_english}
+            </div>
+            <div style={{ marginBottom: "4px" }}>year: {movieInfo.year}</div>
+            <div style={{ marginBottom: "4px" }}>
+              time: {movieInfo.runtime} min
+            </div>
+            <div style={{ marginBottom: "4px" }}>
+              rating: {movieInfo.rating}⭐️
+            </div>
+            <div>like: {movieInfo.like_count}👍</div>
           </div>
           <div className={DetailCss.torrentWrapper}>
-            <div>torrent-url</div>
+            <div style={{ fontSize: "18px" }}>Torrent</div>
             <ul>
               {torrent.map((el) => (
                 <li>
                   <a href={el.url}>{el.url}</a>
                   <br />
-                  {el.quality} / {el.size}
+                  <div style={{ fontSize: "13px", marginTop: "5px" }}>
+                    {el.quality} / {el.size}
+                  </div>
                 </li>
               ))}
             </ul>
