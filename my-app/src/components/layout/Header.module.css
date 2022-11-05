@@ -1,0 +1,36 @@
+.wrapper {
+  width: 100%;
+  height: 70px;
+  background-color: rgb(36, 36, 36);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  z-index: 1;
+}
+.searchWrapper {
+  position: relative;
+  margin-right: 30px;
+  display: flex;
+  align-items: center;
+}
+.searchBar {
+  width: 220px;
+  height: 35px;
+  border: none;
+  border-radius: 25px;
+  padding-left: 20px;
+  padding-right: 50px;
+  font-size: 16px;
+}
+:focus {
+  outline: none;
+}
+.searchBtn {
+  position: absolute;
+  width: 25px;
+  right: 0;
+  margin-right: 15px;
+  cursor: pointer;
+}
