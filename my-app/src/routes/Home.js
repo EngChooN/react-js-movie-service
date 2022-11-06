@@ -29,6 +29,8 @@ function Home() {
     rating: 0,
     id: 0,
   });
+  // data가 없을 때, flag
+  const [notData, setNotData] = useState(false);
 
   // function
   // 모달 열기&닫기 함수
@@ -55,6 +57,12 @@ function Home() {
   };
   // api 호출 (데이터 배열 생성) + else => 결색 결과로 api 호출
   const apiLoad = async () => {
+    console.log(
+      "pageState, inputValue, searchFlag",
+      pageState,
+      inputValue,
+      searchFlag
+    );
     if (searchFlag === false) {
       await fetch(
         `https://yts.mx/api/v2/list_movies.json?limit=21&page=${pageState}`
@@ -69,6 +77,7 @@ function Home() {
           setReFetchLoadingState(true);
         });
     } else {
+      console.log("검색 감지", searchFlag);
       await fetch(
         `https://yts.mx/api/v2/list_movies.json?limit=21&page=${pageState}&query_term=${inputValue}`
       )
@@ -92,6 +101,12 @@ function Home() {
 
   // api 재호출 (기존 데이터 배열에 새로운 배열 추가로 저장)
   const apiReload = async () => {
+    console.log(
+      "pageState, inputValue, searchFlag",
+      pageState,
+      inputValue,
+      searchFlag
+    );
     await fetch(
       `https://yts.mx/api/v2/list_movies.json?limit=21&page=${pageState}&query_term=${inputValue}`
     )
@@ -103,8 +118,17 @@ function Home() {
 
         console.log("기존 데이터", movieData);
         console.log("새로 불러온 데이터", newData);
-        setMovieData([...currentData, ...newData]);
-        setReFetchLoadingState(true);
+        if (newData === undefined) {
+          console.log("불러 올 데이터가 없습니다");
+          console.log("데이터 없음 flag = true");
+          setNotData(true);
+        } else {
+          setMovieData([...currentData, ...newData]);
+          setReFetchLoadingState(true);
+        }
+      })
+      .catch((error) => {
+        console.log("error", error);
       });
   };
 
@@ -151,7 +175,7 @@ function Home() {
           <div className={HomeCss.modalWrapper}>
             <div className={HomeCss.modalTitle}>{modalData.title}</div>
             <div>{modalData.year}</div>
-            <img src={modalData.thumb} />
+            <img src={modalData.thumb} alt="thumb" />
             <div style={{ display: "flex", justifyContent: "center" }}>
               <div>Time: {modalData.runtime} min /</div>
               <div>/ Lang: {modalData.lang} /</div>
@@ -194,6 +218,7 @@ function Home() {
             <img
               src={`${process.env.PUBLIC_URL}/img/0008.gif`}
               className={HomeCss.loadingImg}
+              alt="fetchImg"
             />
             loading...
           </div>
@@ -218,17 +243,20 @@ function Home() {
           ))
         )}
       </div>
-      {!reFetchLoadingState && !loadingState ? (
+      {!reFetchLoadingState && !loadingState && notData === false ? (
         <div className={HomeCss.loading2}>
           <img
             src={`${process.env.PUBLIC_URL}/img/0008.gif`}
             className={HomeCss.loadingImg}
+            alt="reFetchImg"
           />
           loading...
         </div>
       ) : null}
 
-      {reFetchLoadingState === true && loadingState === false ? (
+      {reFetchLoadingState === true &&
+      loadingState === false &&
+      notData === false ? (
         <div
           style={{
             display: "flex",
