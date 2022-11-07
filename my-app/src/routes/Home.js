@@ -57,12 +57,11 @@ function Home() {
   };
   // api 호출 (데이터 배열 생성) + else => 결색 결과로 api 호출
   const apiLoad = async () => {
-    console.log(
-      "pageState, inputValue, searchFlag",
-      pageState,
-      inputValue,
-      searchFlag
-    );
+    // 맨위로 스크롤
+    window.scrollTo(0, 0);
+    setNotData(false);
+    setPageState(1);
+    console.log("데이터 유무 분기", notData);
     if (searchFlag === false) {
       await fetch(
         `https://yts.mx/api/v2/list_movies.json?limit=21&page=${pageState}`
@@ -75,6 +74,9 @@ function Home() {
           console.log("api 호출 후, loading 문구 OFF");
           setLoadingState(false);
           setReFetchLoadingState(true);
+        })
+        .catch((error) => {
+          console.log("api호출 error: ", error);
         });
     } else {
       console.log("검색 감지", searchFlag);
@@ -84,11 +86,19 @@ function Home() {
         .then((response) => response.json())
         .then((data) => {
           // 변환 검색 데이터 state 저장
-          console.log(data.data.movies);
-          setMovieData(data.data.movies);
-          console.log("search api 호출 후, loading 문구 OFF");
-          setLoadingState(false);
-          setReFetchLoadingState(true);
+          if (data.data.movies === undefined) {
+            alert("no result movies");
+            window.location.replace("/");
+          } else {
+            console.log(data.data.movies);
+            setMovieData(data.data.movies);
+            console.log("search api 호출 후, loading 문구 OFF");
+            setLoadingState(false);
+            setReFetchLoadingState(true);
+          }
+        })
+        .catch((error) => {
+          console.log("api호출 error: ", error);
         });
     }
   };
@@ -122,6 +132,7 @@ function Home() {
           console.log("불러 올 데이터가 없습니다");
           console.log("데이터 없음 flag = true");
           setNotData(true);
+          setPageState(1);
         } else {
           setMovieData([...currentData, ...newData]);
           setReFetchLoadingState(true);
@@ -223,23 +234,24 @@ function Home() {
             loading...
           </div>
         ) : (
-          movieData.map((movie) => (
-            <Fade>
-              <Movie
-                key={movie.id}
-                modalFlagFunc={modalFlagFunc}
-                setModalData={setModalData}
-                movieId={movie.id}
-                movieTitle={movie.title}
-                movieGenres={movie.genres}
-                movieCoverImg={movie.medium_cover_image}
-                movieRating={movie.rating}
-                movieLang={movie.language}
-                movieRuntime={movie.runtime}
-                movieYear={movie.year}
-                movieSummary={movie.description_full}
-              />
-            </Fade>
+          movieData.map((movie, index) => (
+            <div key={index}>
+              <Fade>
+                <Movie
+                  modalFlagFunc={modalFlagFunc}
+                  setModalData={setModalData}
+                  movieId={movie.id}
+                  movieTitle={movie.title}
+                  movieGenres={movie.genres}
+                  movieCoverImg={movie.medium_cover_image}
+                  movieRating={movie.rating}
+                  movieLang={movie.language}
+                  movieRuntime={movie.runtime}
+                  movieYear={movie.year}
+                  movieSummary={movie.description_full}
+                />
+              </Fade>
+            </div>
           ))
         )}
       </div>
