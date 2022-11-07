@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import DetailCss from "./Detail.module.css";
+import ReactPlayer from "react-player";
 
 function Detail() {
   useEffect(() => {
@@ -16,7 +17,7 @@ function Detail() {
 
   console.log("movieId", id);
   console.log("movieInfo state", movieInfo);
-  console.log("url", movieInfo.genres);
+  console.log("#tag", movieInfo.genres);
 
   const getMovieInfo = async () => {
     const data = await (
@@ -40,7 +41,14 @@ function Detail() {
           <img
             className={DetailCss.coverImg}
             src={movieInfo.large_cover_image}
+            alt="thumb"
           />
+          {movieInfo.yt_trailer_code === "" ? null : (
+            <ReactPlayer
+              url={`https://www.youtube.com/watch?v=${movieInfo.yt_trailer_code}`}
+              width="100%"
+            />
+          )}
           <div style={{ display: "flex" }}>
             {genres.map((el, idx) => (
               <span key={idx} className={DetailCss.genres}>
@@ -67,8 +75,8 @@ function Detail() {
           <div className={DetailCss.torrentWrapper}>
             <div style={{ fontSize: "18px" }}>Torrent</div>
             <ul style={{ marginBottom: "0px" }}>
-              {torrent.map((el) => (
-                <li style={{ marginBottom: "5px" }}>
+              {torrent.map((el, index) => (
+                <li style={{ marginBottom: "5px" }} key={index}>
                   <a href={el.url}>{el.url}</a>
                   <br />
                   <div style={{ fontSize: "13px", marginTop: "5px" }}>
