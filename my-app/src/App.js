@@ -10,14 +10,14 @@ function App() {
       {/* Route를 찾는 역할인 Switch */}
       <Switch>
         {/* Detail */}
-        <Route path="/movie/:id">
+        <Route path={process.env.PUBLIC_URL + "/movie/:id"}>
           <Detail />
         </Route>
         {/* Home */}
-        <Route exact path="/">
+        <Route exact path={process.env.PUBLIC_URL + "/"}>
           <Home />
         </Route>
-        <Route path="/search/:search">
+        <Route path={process.env.PUBLIC_URL + "/search/:search"}>
           <Search />
         </Route>
       </Switch>

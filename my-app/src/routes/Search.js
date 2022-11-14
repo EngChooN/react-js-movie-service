@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import HomeCss from "./Home.module.css";
 import Movie from "../components/Movie";
-import Fade from "react-reveal/Fade";
+// import Fade from "react-reveal/Fade";
 import { Link } from "react-router-dom";
 import Header from "../components/layout/Header";
 import { useParams } from "react-router-dom";
@@ -164,22 +164,22 @@ function Search() {
           </div>
         ) : (
           movieData.map((movie) => (
-            <Fade>
-              <Movie
-                key={movie.id}
-                modalFlagFunc={modalFlagFunc}
-                setModalData={setModalData}
-                movieId={movie.id}
-                movieTitle={movie.title}
-                movieGenres={movie.genres}
-                movieCoverImg={movie.medium_cover_image}
-                movieRating={movie.rating}
-                movieLang={movie.language}
-                movieRuntime={movie.runtime}
-                movieYear={movie.year}
-                movieSummary={movie.description_full}
-              />
-            </Fade>
+            // <Fade>
+            <Movie
+              key={movie.id}
+              modalFlagFunc={modalFlagFunc}
+              setModalData={setModalData}
+              movieId={movie.id}
+              movieTitle={movie.title}
+              movieGenres={movie.genres}
+              movieCoverImg={movie.medium_cover_image}
+              movieRating={movie.rating}
+              movieLang={movie.language}
+              movieRuntime={movie.runtime}
+              movieYear={movie.year}
+              movieSummary={movie.description_full}
+            />
+            // </Fade>
           ))
         )}
       </div>
