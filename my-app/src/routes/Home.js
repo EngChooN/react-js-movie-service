@@ -242,7 +242,7 @@ function Home() {
               movieYear={movie.year}
               movieSummary={movie.description_full}
             />
-            // </Fade>
+            // </Fade  >
           ))
         )}
       </div>
